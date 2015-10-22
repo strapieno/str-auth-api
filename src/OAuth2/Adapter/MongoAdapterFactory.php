@@ -3,6 +3,7 @@
 namespace Strapieno\Auth\Api\OAuth2\Adapter;
 
 use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use ZF\OAuth2\Factory\MongoAdapterFactory as ZfCampusMongoAdapterFactory;
 
 /**
