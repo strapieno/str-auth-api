@@ -1,6 +1,6 @@
 {
-  "name": "strapieno/str-user-api",
-  "homepage": "https://github.com/strapieno/str-user-api",
+  "name": "strapieno/str-auth-api",
+  "homepage": "https://github.com/strapieno/str-auth-api",
   "require": {
     "php": ">=5.5.0",
     "zfcampus/zf-mvc-auth": "~1.0",
