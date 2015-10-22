@@ -9,6 +9,7 @@ return [
         ],
         'factories' => [
             'AclMan\Assertion\AssertionManager' => 'AclMan\Assertion\AssertionManagerFactory',
+            'Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter' => 'Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapterFactory',
         ]
     ],
     'aclman_services' => [
@@ -23,9 +24,9 @@ return [
     ],
     'zf-oauth2' => [
         // https://apigility.org/documentation/auth/authentication-oauth2
-        'options' => [
-            'always_issue_new_refresh_token' => true, // zf2 default is false
-            // 'refresh_token_lifetime' => (default is 1209600, equal to 14 days)
+        'storage' => 'Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter',
+        'mongo' => [
+            'database' => 'strapieno',
         ],
     ],
 ];
