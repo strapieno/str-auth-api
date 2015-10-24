@@ -2,6 +2,8 @@
 
 namespace Strapieno\Auth\Api\OAuth2\Adapter;
 
+use MongoDate;
+use ZF\ApiProblem\Exception\DomainException;
 use ZF\OAuth2\Adapter\MongoAdapter as ZfCampusMongoAdapter;
 
 /**
@@ -9,6 +11,7 @@ use ZF\OAuth2\Adapter\MongoAdapter as ZfCampusMongoAdapter;
  */
 class MongoAdapter extends ZfCampusMongoAdapter
 {
+    // TODO rewiew to change config
     protected $identityField = 'user_name';
 
     protected $credentialField = 'password_crypt';
@@ -59,7 +62,7 @@ class MongoAdapter extends ZfCampusMongoAdapter
     public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
     {
         if (is_int($expires)) {
-            $expires = new \MongoDate($expires);
+            $expires = new MongoDate($expires);
         }
         return parent::setAccessToken($access_token, $client_id, $user_id, $expires, $scope);
     }
@@ -80,7 +83,7 @@ class MongoAdapter extends ZfCampusMongoAdapter
     public function setRefreshToken($refresh_token, $client_id, $user_id, $expires, $scope = null)
     {
         if (is_int($expires)) {
-            $expires = new \MongoDate($expires);
+            $expires = new MongoDate($expires);
         }
         return parent::setRefreshToken($refresh_token, $client_id, $user_id, $expires, $scope);
     }
@@ -101,7 +104,7 @@ class MongoAdapter extends ZfCampusMongoAdapter
     public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
     {
         if (is_int($expires)) {
-            $expires = new \MongoDate($expires);
+            $expires = new MongoDate($expires);
         }
         return parent::setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope, $id_token);
     }
@@ -115,9 +118,9 @@ class MongoAdapter extends ZfCampusMongoAdapter
         $cursor = $this->collection('user_table')->find([$this->identityField => $username]);
 
         if ($cursor->count() > 1) {
-            $exception = new \RuntimeException('Failure due to identity being ambiguous', 401);
-            //$exception->setType('http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html');
-            //$exception->setTitle('invalid_grant');
+            $exception = new DomainException('Failure due to identity being ambiguous', 401);
+            $exception->setType('http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html');
+            $exception->setTitle('invalid_grant');
             throw $exception;
         }
 
@@ -125,9 +128,9 @@ class MongoAdapter extends ZfCampusMongoAdapter
         foreach ($cursor as $result) {
             if ($result && isset($result['status'])) {
                 if (!($result['status'] > 0)) {
-                    $exception = new \RuntimeException('User email has been not validated', 401);
-                    //$exception->setType('http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html');
-                    //$exception->setTitle('invalid_grant');
+                    $exception = new DomainException('User email has been not validated', 401);
+                    $exception->setType('http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html');
+                    $exception->setTitle('invalid_grant');
                     throw $exception;
                 }
             }

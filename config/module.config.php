@@ -19,9 +19,6 @@ return [
             'allow_not_found_resource' => false,
         ],
     ],
-    'aclman_storage' => [
-        'Strapieno\Auth\AclMan\Storage' => [],
-    ],
     'zf-oauth2' => [
         // https://apigility.org/documentation/auth/authentication-oauth2
         'storage' => 'Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter',
@@ -29,5 +26,21 @@ return [
             'database' => 'strapieno',
         ],
     ],
+    'aclman_storage' => [
+        'Strapieno\Auth\AclMan\Storage' => [
+            'roles' => [
+                // TODO remove
+                'superadmin' => [
+                    'resources' => [
+                        \AclMan\Storage\StorageInterface::ALL_RESOURCES => [
+                            [
+                                'allow' => true
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]
 ];
 
