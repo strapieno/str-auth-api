@@ -2,6 +2,7 @@
 
 namespace Strapieno\Auth\Api\Authentication;
 
+use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
 use ZF\MvcAuth\MvcAuthEvent;
@@ -9,7 +10,7 @@ use ZF\MvcAuth\MvcAuthEvent;
 /**
  * Class ListenerAggregate
  */
-class ListenerAggregate implements ListenerAggregateInterface
+class AuthenticationListenerAggregate implements ListenerAggregateInterface
 {
     use ListenerAggregateTrait;
 
@@ -18,13 +19,20 @@ class ListenerAggregate implements ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events)
     {
-        // TODO add priority
+        // TODO controll priority
         $this->listeners[] = $events->attach(MvcAuthEvent::EVENT_AUTHENTICATION_POST, [$this, 'loadObjectIdentity'], 100);
     }
 
-
-    public function loadObjectIdentity()
+    /**
+     * @param MvcAuthEvent $mvcAuthEvent
+     */
+    public function loadObjectIdentity(MvcAuthEvent $mvcAuthEvent)
     {
-
+        $identity = $mvcAuthEvent->getIdentity();
+        if ($identity instanceof GuestIdentity) {
+            return;
+        }
+        var_dump($identity);
+        die();
     }
 }

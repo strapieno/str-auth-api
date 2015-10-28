@@ -11,9 +11,14 @@ use ZF\OAuth2\Adapter\MongoAdapter as ZfCampusMongoAdapter;
  */
 class MongoAdapter extends ZfCampusMongoAdapter
 {
-    // TODO rewiew to change config
+    /**
+     * @var string
+     */
     protected $identityField = 'user_name';
 
+    /**
+     * @var string
+     */
     protected $credentialField = 'password_crypt';
 
     /**
@@ -176,5 +181,25 @@ class MongoAdapter extends ZfCampusMongoAdapter
     public function setUser($username, $password, $firstName = null, $lastName = null)
     {
         throw new \RuntimeException('Not allowed');
+    }
+
+    /**
+     * @param string $credentialField
+     * @return $this
+     */
+    public function setCredentialField($credentialField)
+    {
+        $this->credentialField = $credentialField;
+        return $this;
+    }
+
+    /**
+     * @param string $identityField
+     * @return $this
+     */
+    public function setIdentityField($identityField)
+    {
+        $this->identityField = $identityField;
+        return $this;
     }
 }

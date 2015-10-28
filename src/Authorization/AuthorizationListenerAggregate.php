@@ -9,7 +9,7 @@ use Zend\EventManager\ListenerAggregateTrait;
 /**
  * Class ListenerAggregate
  */
-class ListenerAggregate implements ListenerAggregateInterface
+class AuthorizationListenerAggregate implements ListenerAggregateInterface
 {
     use ListenerAggregateTrait;
 
@@ -19,11 +19,11 @@ class ListenerAggregate implements ListenerAggregateInterface
     public function attach(EventManagerInterface $events)
     {
         // TODO add priority
-        $this->listeners[] = $events->attach(MvcAuthEvent::EVENT_AUTHORIZATION, [$this, 'loadAclMan']);
+        //$this->listeners[] = $events->attach(MvcAuthEvent::EVENT_AUTHORIZATION, [$this, 'loadAclMan']);
     }
 
     public function loadAclMan()
     {
-
+        // TODO
     }
 }

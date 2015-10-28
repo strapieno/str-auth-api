@@ -11,6 +11,7 @@ use ZF\OAuth2\Factory\MongoAdapterFactory as ZfCampusMongoAdapterFactory;
  */
 class MongoAdapterFactory extends ZfCampusMongoAdapterFactory implements FactoryInterface
 {
+
     /**
      * {@inheritdoc}
      * @return MongoAdapter
@@ -18,6 +19,16 @@ class MongoAdapterFactory extends ZfCampusMongoAdapterFactory implements Factory
     public function createService(ServiceLocatorInterface $services)
     {
         $config  = $services->get('Config');
-        return new MongoAdapter($this->getMongoDb($services), $this->getOauth2ServerConfig($config));
+        $adapeter = new MongoAdapter($this->getMongoDb($services), $this->getOauth2ServerConfig($config));
+
+        if ($config['zf-oauth2']['identity_field']) {
+            $adapeter->setIdentityField($config['zf-oauth2']['identity_field');
+        }
+
+        if ($config['zf-oauth2']['password_crypt']) {
+            $adapeter->setIdentityField($config['zf-oauth2']['password_crypt');
+        }
+
+        return $adapter;
     }
 }
