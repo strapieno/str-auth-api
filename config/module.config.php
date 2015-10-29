@@ -25,6 +25,14 @@ return [
         'mongo' => [
             'database' => 'strapieno',
         ],
+        'storage_settings' => [
+            'client_table'          => 'oauth_client',
+            'access_token_table'    => 'oauth_access_token',
+            'refresh_token_table'   => 'oauth_refresh_token',
+            'code_table'            => 'oauth_authorization_code',
+            'user_table'            => 'user',
+            'jwt_table'             => 'oauth_jwt',
+        ]
     ],
     'aclman_storage' => [
         'Strapieno\Auth\AclMan\Storage' => [

@@ -24,25 +24,6 @@ class MongoAdapter extends ZfCampusMongoAdapter
     /**
      * {@inheritdoc}
      */
-    public function __construct($connection, $config = [])
-    {
-        $config = (array) $config;
-        $config = array_merge([
-            'client_table'          => 'oauth_client',
-            'access_token_table'    => 'oauth_access_token',
-            'refresh_token_table'   => 'oauth_refresh_token',
-            'code_table'            => 'oauth_authorization_code',
-            'user_table'            => 'user',
-            'jwt_table'             => 'oauth_jwt',
-        ], $config);
-
-
-        parent::__construct($connection, $config);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function resultExpireConverter($result)
     {
         if (is_array($result) && isset($result['expires']) && $result['expires'] instanceof \MongoDate) {

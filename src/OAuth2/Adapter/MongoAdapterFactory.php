@@ -19,14 +19,14 @@ class MongoAdapterFactory extends ZfCampusMongoAdapterFactory implements Factory
     public function createService(ServiceLocatorInterface $services)
     {
         $config  = $services->get('Config');
-        $adapeter = new MongoAdapter($this->getMongoDb($services), $this->getOauth2ServerConfig($config));
+        $adapter = new MongoAdapter($this->getMongoDb($services), $this->getOauth2ServerConfig($config));
 
-        if ($config['zf-oauth2']['identity_field']) {
-            $adapeter->setIdentityField($config['zf-oauth2']['identity_field');
+        if (isset($config['zf-oauth2']['storage_settings']['identity_field'])) {
+            $adapter->setIdentityField($config['zf-oauth2']['storage_settings']['identity_field']);
         }
 
-        if ($config['zf-oauth2']['password_crypt']) {
-            $adapeter->setIdentityField($config['zf-oauth2']['password_crypt');
+        if (isset($config['zf-oauth2']['storage_settings']['password_crypt'])) {
+            $adapter->setIdentityField($config['zf-oauth2']['storage_settings']['password_crypt']);
         }
 
         return $adapter;

@@ -4,6 +4,7 @@ namespace Strapieno\Auth\Api;
 
 use Strapieno\Auth\Api\Authentication\AuthenticationListenerAggregate;
 use Zend\ModuleManager\Feature\HydratorProviderInterface;
+use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ArrayUtils;
 
 /**
