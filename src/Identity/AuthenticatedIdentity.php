@@ -2,10 +2,13 @@
 
 namespace Strapieno\Auth\Api\Identity;
 
+use Zend\Permissions\Acl\Role\RoleInterface;
+use Zend\Permissions\Rbac\AbstractRole as AbstractRbacRole;
+
 /**
  * Class AuthenticatedIdentity
  */
-class AuthenticatedIdentity implements IdentityInterface
+class AuthenticatedIdentity extends AbstractRbacRole implements IdentityInterface
 {
     /**
      * @var string|null
@@ -26,15 +29,18 @@ class AuthenticatedIdentity implements IdentityInterface
     }
 
     /**
-     * @return strig
+     * @return null|string
      */
     public function getRoleId()
     {
-        return $this->name;
+        if ($this->identityObject) {
+            return $this->getAuthenticationObject()->getRoleId();
+        }
+        return null;
     }
 
     /**
-     * @return null|string
+     * @return null|array
      */
     public function getAuthenticationIdentity()
     {
@@ -42,7 +48,7 @@ class AuthenticatedIdentity implements IdentityInterface
     }
 
     /**
-     * @param $name strig
+     * @param $name string
      */
     public function setName($name)
     {
@@ -50,7 +56,7 @@ class AuthenticatedIdentity implements IdentityInterface
     }
 
     /**
-     * @return Object|null
+     * @return RoleInterface|null
      */
     public function getAuthenticationObject()
     {
@@ -58,9 +64,10 @@ class AuthenticatedIdentity implements IdentityInterface
     }
 
     /**
-     * @return Object|null
+     * @param RoleInterface $identityObject
+     * @return $this
      */
-    public function setAuthenticationObject($identityObject)
+    public function setAuthenticationObject(RoleInterface $identityObject)
     {
         if (!is_object($identityObject)) {
             // TODO Exception
