@@ -8,8 +8,7 @@ return [
             'AclMan\Storage\StorageFactory',
         ],
         'factories' => [
-            'AclMan\Assertion\AssertionManager' => 'AclMan\Assertion\AssertionManagerFactory',
-            'Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter' => 'Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapterFactory',
+            'AclMan\Assertion\AssertionManager' => 'AclMan\Assertion\AssertionManagerFactory'
         ]
     ],
     'aclman_services' => [
@@ -21,7 +20,7 @@ return [
     ],
     'zf-oauth2' => [
         // https://apigility.org/documentation/auth/authentication-oauth2
-        'storage' => 'Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter',
+        'storage' => 'Strapieno\Auth\Model\OAuth2\Adapter\MongoAdapter',
         'mongo' => [
             'database' => 'strapieno',
         ],
@@ -30,7 +29,7 @@ return [
             'access_token_table'    => 'oauth_access_token',
             'refresh_token_table'   => 'oauth_refresh_token',
             'code_table'            => 'oauth_authorization_code',
-            'user_table'            => 'user',
+            'user_table'            => 'user', // TODO recover from use service from factory
             'jwt_table'             => 'oauth_jwt',
         ]
     ],

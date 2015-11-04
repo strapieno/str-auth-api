@@ -2,12 +2,15 @@
 
 namespace Strapieno\Auth\Api\Authentication;
 
-use Strapieno\Auth\Api\Identity\IdentityInterface;
+use Strapieno\Auth\Api\Identity\AuthenticatedIdentity;
+use Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter;
+use Strapieno\User\Model\UserModelInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
 use ZF\ApiProblem\ApiProblem;
 use ZF\ApiProblem\ApiProblemResponse;
+use ZF\MvcAuth\Identity\IdentityInterface;
 use ZF\MvcAuth\MvcAuthEvent;
 
 /**
@@ -30,16 +33,33 @@ class AuthenticationListenerAggregate implements ListenerAggregateInterface
      */
     public function loadObjectIdentity(MvcAuthEvent $mvcAuthEvent)
     {
-
         $identity = $mvcAuthEvent->getIdentity();
         if ($identity instanceof IdentityInterface) {
             $autheticateIdentity = $identity->getAuthenticationIdentity();
             if (!empty($autheticateIdentity['user_id'])) {
-                // TODO recover user object
+                $sm = $mvcAuthEvent->getMvcEvent()->getApplication()->getServiceManager();
+                if (!$sm->has('Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter')) {
+                    // TODO Exception
+                }
+                /** @var $adapter MongoAdapter */
+                $adapter = $sm->get('Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter');
+                /** @var $userService UserModelInterface */
+                $userService = $sm->get(ModelManager::class)->get('Strapieno\User\Model\UserModelService');
+                $result = $userService->getAuthenticationUser(
+                    $adapter->getIdentityField(),
+                    $autheticateIdentity['user_id']
+                );
+
+                if ($result->count() != 1) {
+                    // TODO exception
+                }
+                $identity = new AuthenticatedIdentity($autheticateIdentity);
+                $identity->setAuthenticationObject($result->current());
+                $identity->setName($autheticateIdentity['user_id']);
             } elseif (!empty($autheticateIdentity['client_id'])) {
                 // TODO recover client object
             } else {
-                // TODO Invalid identity
+                return new ApiProblemResponse(new ApiProblem(401, 'Unknown identity type'));
             }
         }
 
