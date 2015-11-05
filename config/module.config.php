@@ -36,14 +36,14 @@ return [
     'aclman_storage' => [
         'Strapieno\Auth\AclMan\Storage' => [
             'roles' => [
-                // TODO remove
-                'superadmin' => [
+                // Default allow all resource
+                \AclMan\Storage\StorageInterface::ALL_ROLES => [
                     'resources' => [
                         \AclMan\Storage\StorageInterface::ALL_RESOURCES => [
                             [
                                 'allow' => true
                             ]
-                        ]
+                        ],
                     ]
                 ]
             ]
