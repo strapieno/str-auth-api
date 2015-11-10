@@ -78,7 +78,7 @@ return [
         'matryoshka-connected' => [
             'Strapieno\OauthClient\Api\V1\Rest\ConnectedResource' => [
                 'model' => 'Strapieno\Auth\Model\OauthClientModelService',
-                'collection_criteria' => 'Strapieno\Auth\Model\Criteria\OauthClientCollectionCriteria   ',
+                'collection_criteria' => 'Strapieno\Auth\Model\Criteria\OauthClientCollectionCriteria',
                 'entity_criteria' => 'Strapieno\Model\Criteria\NotIsolatedActiveRecordCriteria'
             ]
         ]
