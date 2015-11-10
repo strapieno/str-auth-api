@@ -63,7 +63,7 @@ return [
                         'options' => [
                             'route' => '/oauth-client[/:client_id]',
                             'defaults' => [
-                                'controller' => 'Strapieno\User\Api\V1\Rest\Controller'
+                                'controller' => 'Strapieno\OauthClient\Api\V1\Rest\Controller'
                             ],
                             'constraints' => [
                                 'client_id' => '[0-9a-f]{24}'
