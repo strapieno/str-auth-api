@@ -18,5 +18,11 @@ class OauthClientHydrator extends DateHystoryHydrator
     {
         parent::__construct($underscoreSeparatedKeys);
         $this->addStrategy('user_id', new MongoIdStrategy());
+        // Filter
+        $this->filterComposite->addFilter(
+            'clientSecret',
+            new MethodMatchFilter('getClientSecret', true),
+            FilterComposite::CONDITION_AND
+        );
     }
 }
