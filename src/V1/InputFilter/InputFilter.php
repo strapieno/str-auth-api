@@ -34,11 +34,27 @@ class InputFilter extends ZendInputFilter
      */
     protected function addClientSecret()
     {
-        $input = new Input('client_secret');
+        $input = new Input('password');
         // Filter
         $filterManager = $this->getFactory()->getDefaultFilterChain()->getPluginManager();
         $input->getFilterChain()->attach($filterManager->get('stringtrim'));
 
+        $this->add($input);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function addClientSecret()
+    {
+        $input = new Input('type');
+        // Filter
+        $filterManager = $this->getFactory()->getDefaultFilterChain()->getPluginManager();
+        $input->getFilterChain()->attach($filterManager->get('stringtrim'));
+        // Validator
+        $validatorManager = $this->getFactory()->getDefaultValidatorChain()->getPluginManager();
+        $input->getFilterChain()->attach($validatorManager->get('OauthClientTypesValidator'));
         $this->add($input);
         return $this;
     }
