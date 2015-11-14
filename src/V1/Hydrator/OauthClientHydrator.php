@@ -24,5 +24,10 @@ class OauthClientHydrator extends DateHystoryHydrator
             new MethodMatchFilter('getClientSecret', true),
             FilterComposite::CONDITION_AND
         );
+        $this->filterComposite->addFilter(
+            'roleId',
+            new MethodMatchFilter('getRoleId', true),
+            FilterComposite::CONDITION_AND
+        );
     }
 }

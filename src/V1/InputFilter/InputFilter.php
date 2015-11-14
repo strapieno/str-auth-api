@@ -24,7 +24,8 @@ class InputFilter extends ZendInputFilter
         // Filter
         $filterManager = $this->getFactory()->getDefaultFilterChain()->getPluginManager();
         $input->getFilterChain()->attach($filterManager->get('stringtrim'));
-
+        $validatorManager = $this->getFactory()->getDefaultValidatorChain()->getPluginManager();
+        $input->getFilterChain()->attach($validatorManager->get('oauthclient-clientidalreadyexist'));
         $this->add($input);
         return $this;
     }
