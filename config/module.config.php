@@ -135,7 +135,8 @@ return [
     ],
     'zf-content-validation' => [
         'Strapieno\OauthClient\Api\V1\Rest\Controller' => [
-            'input_filter' => 'OauthClientInputFilter'
+            'input_filter' => 'OauthClientInputFilter',
+            'POST' => 'OauthClientPosInputFilter'
         ]
     ]
 ];
