@@ -12,7 +12,9 @@ class InputFilter extends ZendInputFilter
     public function init()
     {
         $this->addClientIdInput()
-            ->addClientSecret();
+            ->addClientSecret()
+            ->addType()
+        ;
     }
 
     /**
@@ -25,7 +27,7 @@ class InputFilter extends ZendInputFilter
         $filterManager = $this->getFactory()->getDefaultFilterChain()->getPluginManager();
         $input->getFilterChain()->attach($filterManager->get('stringtrim'));
         $validatorManager = $this->getFactory()->getDefaultValidatorChain()->getPluginManager();
-        $input->getFilterChain()->attach($validatorManager->get('oauthclient-clientidalreadyexist'));
+        $input->getValidatorChain()->attach($validatorManager->get('oauthclient-clientidalreadyexist'));
         $this->add($input);
         return $this;
     }
@@ -47,7 +49,7 @@ class InputFilter extends ZendInputFilter
     /**
      * @return $this
      */
-    protected function addClientSecret()
+    protected function addType()
     {
         $input = new Input('type');
         // Filter
@@ -55,7 +57,7 @@ class InputFilter extends ZendInputFilter
         $input->getFilterChain()->attach($filterManager->get('stringtrim'));
         // Validator
         $validatorManager = $this->getFactory()->getDefaultValidatorChain()->getPluginManager();
-        $input->getFilterChain()->attach($validatorManager->get('OauthClientTypesValidator'));
+        $input->getValidatorChain()->attach($validatorManager->get('OauthClientTypesValidator'));
         $this->add($input);
         return $this;
     }
