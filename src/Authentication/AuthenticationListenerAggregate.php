@@ -69,7 +69,6 @@ class AuthenticationListenerAggregate implements ListenerAggregateInterface
                 /** @var $oauthClientService  OauthClientModelInterface */
                 $oauthClientService = $sm->get(ModelManager::class)->get('Strapieno\Auth\Model\OauthClientModelService');
                 $result = $oauthClientService->getAuthenticationClient($autheticateIdentity);
-                // TODO recover client object
             } else {
                 return new ApiProblemResponse(new ApiProblem(401, 'Unknown identity type'));
             }
