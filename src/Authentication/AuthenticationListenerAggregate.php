@@ -5,6 +5,7 @@ namespace Strapieno\Auth\Api\Authentication;
 use Matryoshka\Model\ModelManager;
 use Strapieno\Auth\Api\Identity\AuthenticatedIdentity;
 use Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter;
+use Strapieno\Auth\Model\OauthClientModelInterface;
 use Strapieno\User\Model\UserModelInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -64,6 +65,10 @@ class AuthenticationListenerAggregate implements ListenerAggregateInterface
                 $identity->setAuthenticationObject($result->current());
                 $identity->setName($autheticateIdentity['user_id']);
             } elseif (!empty($autheticateIdentity['client_id'])) {
+                $sm = $mvcAuthEvent->getMvcEvent()->getApplication()->getServiceManager();
+                /** @var $oauthClientService  OauthClientModelInterface */
+                $oauthClientService = $sm->get(ModelManager::class)->get('Strapieno\Auth\Model\OauthClientModelService');
+                $result = $oauthClientService->getAuthenticationClient($autheticateIdentity);
                 // TODO recover client object
             } else {
                 return new ApiProblemResponse(new ApiProblem(401, 'Unknown identity type'));
