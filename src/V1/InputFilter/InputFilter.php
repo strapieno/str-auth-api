@@ -12,8 +12,8 @@ class InputFilter extends ZendInputFilter
     public function init()
     {
         $this->addClientIdInput()
-            ->addClientSecret()
-            ->addType()
+            ->addClientSecretInput()
+            ->addTypeInput()
         ;
     }
 
@@ -35,7 +35,7 @@ class InputFilter extends ZendInputFilter
     /**
      * @return $this
      */
-    protected function addClientSecret()
+    protected function addClientSecretInput()
     {
         $input = new Input('password');
         // Filter
@@ -49,7 +49,7 @@ class InputFilter extends ZendInputFilter
     /**
      * @return $this
      */
-    protected function addType()
+    protected function addTypeInput()
     {
         $input = new Input('type');
         // Filter

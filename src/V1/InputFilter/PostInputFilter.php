@@ -11,13 +11,13 @@ class PostInputFilter extends InputFilter
     {
         parent::init();
 
-        $this->updateClientId();
+        $this->updateClientIdInput();
     }
 
     /**
      * @return $this
      */
-    protected function updateClientId()
+    protected function updateClientIdInput()
     {
         $input = $this->get('client_id');
         $validatorManager = $this->getFactory()->getDefaultValidatorChain()->getPluginManager();
