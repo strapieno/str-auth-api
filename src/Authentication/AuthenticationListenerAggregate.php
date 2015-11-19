@@ -5,6 +5,7 @@ namespace Strapieno\Auth\Api\Authentication;
 use Matryoshka\Model\ModelManager;
 use Strapieno\Auth\Api\Identity\AuthenticatedIdentity;
 use Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter;
+use Strapieno\Auth\Model\OAuth2\AdapterInterface;
 use Strapieno\Auth\Model\OauthClientModelInterface;
 use Strapieno\User\Model\UserModelInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -41,16 +42,17 @@ class AuthenticationListenerAggregate implements ListenerAggregateInterface
         if ($identity instanceof GuestIdentity) {
             return;
         }
-
+    
         if ($identity instanceof IdentityInterface) {
             $autheticateIdentity = $identity->getAuthenticationIdentity();
             if (!empty($autheticateIdentity['user_id'])) {
                 $sm = $mvcAuthEvent->getMvcEvent()->getApplication()->getServiceManager();
-                if (!$sm->has('Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter')) {
+                if (!$sm->has('Strapieno\Auth\Model\OAuth2\StorageAdapter')
+                    && $adapter = $sm->get('Strapieno\Auth\Model\OAuth2\StorageAdapter');
+                    && !($adapter instanceof AdapterInterface)
+                ) {
                     // TODO Exception
                 }
-                /** @var $adapter MongoAdapter */
-                $adapter = $sm->get('Strapieno\Auth\Model\OAuth2\Adapter\MongoAdapter');
                 /** @var $userService UserModelInterface */
                 $userService = $sm->get(ModelManager::class)->get('Strapieno\User\Model\UserModelService');
                 $result = $userService->getAuthenticationUser(

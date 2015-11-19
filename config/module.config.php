@@ -20,7 +20,7 @@ return [
     ],
     'zf-oauth2' => [
         // https://apigility.org/documentation/auth/authentication-oauth2
-        'storage' => 'Strapieno\Auth\Model\OAuth2\Adapter\MongoAdapter',
+        'storage' => 'Strapieno\Auth\Model\OAuth2\StorageAdapter',
         'mongo' => [
             'database' => 'strapieno',
         ],
