@@ -43,15 +43,6 @@ class Module implements HydratorProviderInterface, InputFilterProviderInterface
         return include __DIR__ . '/config/hydrator.config.php';
     }
 
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getInputFilterConfig()
-    {
-        return include __DIR__ . '/config/input-filter.config.php';
-    }
-
     /**
      * @param MvcEvent $e
      * @throws RuntimeException
