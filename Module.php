@@ -11,7 +11,7 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Class Module
  */
-class Module implements HydratorProviderInterface, InputFilterProviderInterface
+class Module implements HydratorProviderInterface
 {
     /**
      * @return array
