@@ -5,7 +5,7 @@ namespace Strapieno\Auth\Api\V1\Hydrator;
 use Matryoshka\Model\Hydrator\Strategy\DateTimeStrategy;
 
 use Matryoshka\Model\Wrapper\Mongo\Hydrator\Strategy\MongoIdStrategy;
-use Strapieno\ModelUtils\Hydrator\DateHystoryHydrator;
+use Strapieno\Utils\Hydrator\DateHystoryHydrator;
 use Zend\Stdlib\Hydrator\Filter\FilterComposite;
 use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
