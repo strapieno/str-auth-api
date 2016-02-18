@@ -8,6 +8,7 @@ use Strapieno\Auth\Api\OAuth2\Adapter\MongoAdapter;
 use Strapieno\Auth\Model\OAuth2\AdapterInterface;
 use Strapieno\Auth\Model\OauthClientModelInterface;
 use Strapieno\User\Model\UserModelInterface;
+use Strapieno\User\Model\UserModelService;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
