@@ -8,7 +8,7 @@
     "matryoshka-model/mongo-wrapper": "0.8.*@dev",
     "matryoshka-model/matryoshka": "0.8.*@dev",
     "matryoshka-model/zf2-matryoshka-module": "0.8.*@dev",
-    "matryoshka-model/zf-apigility-matryoshka": "dev-develop",
+    "matryoshka-model/zf2-apigility-matryoshka": "dev-develop",
     "ripaclub/aclman": "dev-develop@dev",
     "strapieno/str-user-model" : "dev-develop",
     "strapieno/str-auth-model" : "dev-develop",
