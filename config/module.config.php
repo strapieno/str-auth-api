@@ -136,7 +136,22 @@ return [
     'zf-content-validation' => [
         'Strapieno\OauthClient\Api\V1\Rest\Controller' => [
             'input_filter' => 'Strapieno\Auth\Model\InputFilter\DefaultInputFilter',
-            'POST' => 'Strapieno\Auth\Model\InputFilter\CreateInputFilter'
+            'POST' => 'Strapieno\Auth\Model\InputFilter\PostInputFilter'
+        ]
+    ],
+    'strapieno_input_filter_specs' => [
+        'Strapieno\Auth\Api\InputFilter\CreateInputFilter' => [
+            'merge' => 'Strapieno\Auth\Model\InputFilter\PostInputFilter',
+            'client_id' => [
+                'name' => 'client_id',
+                'require' => false,
+                'allow_empty' => true
+            ],
+            'type' => [
+                'name' => 'type',
+                'require' => true,
+                'allow_empty' => false
+            ]
         ]
     ]
 ];
