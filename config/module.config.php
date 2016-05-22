@@ -140,8 +140,8 @@ return [
         ]
     ],
     'strapieno_input_filter_specs' => [
-        'Strapieno\Auth\Api\InputFilter\CreateInputFilter' => [
-            'merge' => 'Strapieno\Auth\Model\InputFilter\PostInputFilter',
+        'Strapieno\Auth\Model\InputFilter\PostInputFilter' => [
+            'merge' => 'Strapieno\Auth\Model\InputFilter\DefaultInputFilter',
             'client_id' => [
                 'name' => 'client_id',
                 'require' => false,
