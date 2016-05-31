@@ -74,10 +74,6 @@ return [
     'router' => [
         'routes' => [
             'api-rest' => [
-                'type' => 'Literal',
-                'options' => [
-                    'route' => '/rest'
-                ],
                 'child_routes' => [
                     'oauth-client' => [
                         'type' => 'Segment',
