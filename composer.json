@@ -14,12 +14,13 @@
   "require-dev": {
     "phpunit/phpunit": "~4.7",
     "zendframework/zftool": "dev-master",
-    "robertboloc/zf2-components-list-generator": "dev-master"
+    "robertboloc/zf2-components-list-generator": "dev-master",
+    "satooshi/php-coveralls": "dev-master"
   },
   "autoload": {
     "psr-4": {
-      "Strapieno\\User\\Model\\": "src/",
-      "Strapieno\\User\\ModelTest\\": "tests/"
+      "Strapieno\\Auth\\Api\\": "src/",
+      "Strapieno\\Auth\\ApiTest\\": "tests/"
     },
     "classmap": [
       "./Module.php"

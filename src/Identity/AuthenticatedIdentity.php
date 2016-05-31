@@ -33,8 +33,9 @@ class AuthenticatedIdentity extends AbstractRbacRole implements IdentityInterfac
      */
     public function getRoleId()
     {
-        if ($this->identityObject) {
-            return $this->getAuthenticationObject()->getRoleId();
+        $identityObject = $this->getAuthenticationObject();
+        if ($identityObject) {
+            return $identityObject->getRoleId();
         }
         return null;
     }
