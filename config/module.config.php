@@ -8,7 +8,29 @@ return [
             'AclMan\Storage\StorageFactory',
         ],
         'factories' => [
+            'Strapieno\Utils\Listener\ListenerManager' => 'Strapieno\Utils\Listener\ListenerManagerFactory',
             'AclMan\Assertion\AssertionManager' => 'AclMan\Assertion\AssertionManagerFactory'
+        ],
+        'invokables' => [
+            'Strapieno\Utils\Delegator\AttachListenerDelegator' =>  'Strapieno\Utils\Delegator\AttachListenerDelegator'
+        ],
+        'aliases' => [
+            'listenerManager' => 'Strapieno\Utils\Listener\ListenerManager'
+        ],
+        'delegators' => [
+            'Application' => [
+                'Strapieno\Utils\Delegator\AttachListenerDelegator',
+            ]
+        ]
+    ],
+    'service-listeners' => [
+        'invokables' => [
+            'Strapieno\Auth\Api\Authorization\AuthorizationListenerAggregate' => 'Strapieno\Auth\Api\Authorization\AuthorizationListenerAggregate',
+        ]
+    ],
+    'attach-listeners' => [
+        'Application' => [
+            'Strapieno\Auth\Api\Authorization\AuthorizationListenerAggregate'
         ]
     ],
     'aclman_services' => [
